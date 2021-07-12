@@ -1,0 +1,25 @@
+version: '3.3'
+services:
+  web:
+    container_name: node_app
+    image: node:6.9.1
+    volumes:
+      - ./:/usr/src/app
+    working_dir: /usr/src/app
+    environment:
+      - MONGO_IP=database
+    ports:
+      - 3000:3000
+    command: node app.js
+    depends_on:
+      - database
+  database:
+    container_name: db
+    image: mongo:3
+    restart: always
+  test:
+    image: node:6.9.1
+    depends_on:
+      - web
+      - database
+    command: curl http://web:3000

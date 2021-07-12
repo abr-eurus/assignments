@@ -1,0 +1,1 @@
+docker run --rm -i alpine echo "change this word to" | docker run -i --rm alpine sed -n 's/this/that/p'

@@ -1,0 +1,2 @@
+docker cp /path/to/file  CONTAINER_ID:/(to_the_place_you_want_the_file_to_be)
+docker cp ./solution.txt  9b69:/usr

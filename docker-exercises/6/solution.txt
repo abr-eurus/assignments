@@ -1,0 +1,2 @@
+docker run -it --name=test1 alpine:latest date
+docker run -it --name=test2 alpine:latest date

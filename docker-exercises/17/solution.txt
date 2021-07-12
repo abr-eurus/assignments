@@ -1,0 +1,2 @@
+docker run --name=alpine-container -e tmpvar=test alpine
+docker export -o alpine-container.tar alpine-container
