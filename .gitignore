@@ -1,0 +1,9 @@
+.idea/
+variable.tf
+*.tfvars
+*.hcl
+*.backup
+*.tfstate
+.terraform
+modules/*/vars.tf
+__pycache__
