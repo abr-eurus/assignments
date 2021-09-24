@@ -1,0 +1,15 @@
+version: 0.2
+
+phases:
+  pre_build:
+    commands:
+      - echo "installing TIDY..."
+      - apt-get update
+      - apt-get install tidy -y
+  build:
+    commands:
+      - echo "RUNNING test cases..."
+      - ./scripts/run-test-script.sh
+  post_build:
+    commands:
+      - echo "TEST CASES completed..."
