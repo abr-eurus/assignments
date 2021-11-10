@@ -1,0 +1,35 @@
+#!/bin/bash
+
+apt update -y
+
+----------------------------------- NodeJS App -----------------------------------
+apt install curl
+curl -sL https://deb.nodesource.com/setup_12.x | sudo bash -
+apt install apache2 php nodejs git mongodb -y
+apt install npm -y
+chown -R ubuntu /var/www/html
+rm -rf /var/www/html/*
+cat <<EOT >> /lib/systemd/system/nodeapp.service
+[Unit]
+Description=Jenkins CI/CD test NodeJS App
+After=network.target
+
+[Service]
+Type=simple
+User=ubuntu
+WorkingDirectory=/var/www/html/
+ExecStart=/usr/bin/node /var/www/html/app.js
+Restart=on-failure
+
+[Install]
+WantedBy=multi-user.target
+EOT
+systemctl daemon-reload
+
+----------------------------------- Jenkins Server -----------------------------------
+apt install openjdk-8-jdk npm -y
+wget -q -O - https://pkg.jenkins.io/debian-stable/jenkins.io.key | sudo apt-key add -
+sh -c 'echo deb https://pkg.jenkins.io/debian-stable binary/ > \
+    /etc/apt/sources.list.d/jenkins.list'
+apt update && sudo apt install jenkins -y
+sh -c "echo 'jenkins ALL=(ALL) NOPASSWD:ALL' >> /etc/sudoers"
